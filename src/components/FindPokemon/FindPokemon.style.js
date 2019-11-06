@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import LinearGradient from 'react-native-linear-gradient';
 
 export const Page = styled.SafeAreaView`
   align-items: center;
@@ -28,6 +29,10 @@ export const FormButton = styled.TouchableOpacity`
   background-color: #0017ff;
   align-items: center;
   justify-content: center;
+`;
+
+export const Linear = styled(LinearGradient)`
+  flex: 1;
 `;
 
 export const Text = styled.Text`
