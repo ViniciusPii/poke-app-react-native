@@ -19,7 +19,6 @@ export default () => {
   const [loading, setLoading] = useState(false);
   const [namePokemon, setNamePokemon] = useState('');
   const [typePokemon, setTypePokemon] = useState('');
-  const [pokeInfo, setPokeInfo] = useState();
 
   const infoPokemon = async () => {
     try {
@@ -28,15 +27,15 @@ export default () => {
 
       const { data } = response;
 
-      setPokeInfo(data);
       setTypePokemon(data.types[0].type.name);
       setLoading(false);
       Keyboard.dismiss();
-      console.log(pokeInfo);
+      console.log(data);
     } catch (error) {
       alert('Error!!');
       setNamePokemon('');
       setLoading(false);
+      Keyboard.dismiss();
     }
   };
 
@@ -98,6 +97,10 @@ export default () => {
     }
   };
 
+  useEffect(() => {
+    setColor();
+  }, [typePokemon]);
+
   const handleClick = () => {
     infoPokemon();
     setColor();
@@ -116,8 +119,8 @@ export default () => {
             autoCapitalize="none"
             autoCompleteType="off"
             autoCorrect={false}
-            value={namePokemon}
             onChangeText={name => setNamePokemon(name)}
+            value={namePokemon}
           />
           <FormButton loading={loading} onPress={handleClick}>
             {loading ? (

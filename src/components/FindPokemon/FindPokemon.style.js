@@ -41,6 +41,8 @@ export const FormButton = styled.TouchableOpacity`
   justify-content: center;
 `;
 
+export const Result = styled.View``;
+
 export const Text = styled.Text`
   font-size: 18px;
 `;
