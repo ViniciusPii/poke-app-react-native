@@ -40,60 +40,80 @@ export default () => {
   };
 
   const setColor = () => {
-    if (typePokemon === 'bug') {
-      setPrimaryBgColor('#719E3E');
-      setSecondBgColor('#fff');
-    } else if (typePokemon === 'dragon') {
-      setPrimaryBgColor('#53A4CF');
-      setSecondBgColor('#F06E56');
-    } else if (typePokemon === 'fairy') {
-      setPrimaryBgColor('#FDB9EA');
-      setSecondBgColor('#fff');
-    } else if (typePokemon === 'fire') {
-      setPrimaryBgColor('#f60000');
-      setSecondBgColor('#fcb045');
-    } else if (typePokemon === 'ghost') {
-      setPrimaryBgColor('#7A62A2');
-      setSecondBgColor('#333');
-    } else if (typePokemon === 'ground') {
-      setPrimaryBgColor('#F7DE3E');
-      setSecondBgColor('#fff');
-    } else if (typePokemon === 'normal') {
-      setPrimaryBgColor('#A4ADB0');
-      setSecondBgColor('#fff');
-    } else if (typePokemon === 'psychic') {
-      setPrimaryBgColor('#F366B9');
-      setSecondBgColor('#fff');
-    } else if (typePokemon === 'steel') {
-      setPrimaryBgColor('#9EB7B8');
-      setSecondBgColor('#fff');
-    } else if (typePokemon === 'dark') {
-      setPrimaryBgColor('#717171');
-      setSecondBgColor('#fff');
-    } else if (typePokemon === 'electric') {
-      setPrimaryBgColor('#EED534');
-      setSecondBgColor('#fff');
-    } else if (typePokemon === 'fighting') {
-      setPrimaryBgColor('#D56723');
-      setSecondBgColor('#fff');
-    } else if (typePokemon === 'flying') {
-      setPrimaryBgColor('#3CC7EF');
-      setSecondBgColor('#BDB9B8');
-    } else if (typePokemon === 'grass') {
-      setPrimaryBgColor('#9BCB50');
-      setSecondBgColor('#fff');
-    } else if (typePokemon === 'ice') {
-      setPrimaryBgColor('#50C3E7');
-      setSecondBgColor('#fff');
-    } else if (typePokemon === 'poison') {
-      setPrimaryBgColor('#BA7FC9');
-      setSecondBgColor('#fff');
-    } else if (typePokemon === 'rock') {
-      setPrimaryBgColor('#A38C20');
-      setSecondBgColor('#fff');
-    } else if (typePokemon === 'water') {
-      setPrimaryBgColor('#4591C4');
-      setSecondBgColor('#fff');
+    switch (typePokemon) {
+      case 'bug':
+        setPrimaryBgColor('#719E3E');
+        setSecondBgColor('#fff');
+        break;
+      case 'dragon':
+        setPrimaryBgColor('#53A4CF');
+        setSecondBgColor('#F06E56');
+        break;
+      case 'fairy':
+        setPrimaryBgColor('#FDB9EA');
+        setSecondBgColor('#fff');
+        break;
+      case 'fire':
+        setPrimaryBgColor('#f60000');
+        setSecondBgColor('#fcb045');
+        break;
+      case 'ghost':
+        setPrimaryBgColor('#7A62A2');
+        setSecondBgColor('#333');
+        break;
+      case 'ground':
+        setPrimaryBgColor('#F7DE3E');
+        setSecondBgColor('#fff');
+        break;
+      case 'normal':
+        setPrimaryBgColor('#A4ADB0');
+        setSecondBgColor('#fff');
+        break;
+      case 'psychic':
+        setPrimaryBgColor('#F366B9');
+        setSecondBgColor('#fff');
+        break;
+      case 'steel':
+        setPrimaryBgColor('#9EB7B8');
+        setSecondBgColor('#fff');
+        break;
+      case 'dark':
+        setPrimaryBgColor('#717171');
+        setSecondBgColor('#fff');
+        break;
+      case 'electric':
+        setPrimaryBgColor('#EED534');
+        setSecondBgColor('#fff');
+        break;
+      case 'fighting':
+        setPrimaryBgColor('#D56723');
+        setSecondBgColor('#fff');
+        break;
+      case 'flying':
+        setPrimaryBgColor('#3CC7EF');
+        setSecondBgColor('#BDB9B8');
+        break;
+      case 'grass':
+        setPrimaryBgColor('#9BCB50');
+        setSecondBgColor('#fff');
+        break;
+      case 'ice':
+        setPrimaryBgColor('#50C3E7');
+        setSecondBgColor('#fff');
+        break;
+      case 'poison':
+        setPrimaryBgColor('#BA7FC9');
+        setSecondBgColor('#fff');
+        break;
+      case 'rock':
+        setPrimaryBgColor('#A38C20');
+        setSecondBgColor('#fff');
+        break;
+      case 'water':
+        setPrimaryBgColor('#4591C4');
+        setSecondBgColor('#fff');
+        break;
+      default:
     }
   };
 
