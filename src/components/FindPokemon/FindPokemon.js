@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Keyboard, ActivityIndicator } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import api from '../../clients/pokeApi';
 import {
@@ -15,14 +16,91 @@ import {
 export default () => {
   const [primaryBgColor, setPrimaryBgColor] = useState('#fff');
   const [secondBgColor, setSecondBgColor] = useState('#fff');
+  const [loading, setLoading] = useState(false);
   const [namePokemon, setNamePokemon] = useState('');
+  const [typePokemon, setTypePokemon] = useState('');
+  const [pokeInfo, setPokeInfo] = useState();
 
-  const findByPokemon = async () => {
-    const response = await api.get(`/pokemon/${namePokemon}`);
+  const infoPokemon = async () => {
+    try {
+      setLoading(true);
+      const response = await api.get(`/pokemon/${namePokemon}`);
+
+      const { data } = response;
+
+      setPokeInfo(data);
+      setTypePokemon(data.types[0].type.name);
+      setLoading(false);
+      Keyboard.dismiss();
+      console.log(pokeInfo);
+    } catch (error) {
+      alert('Error!!');
+      setNamePokemon('');
+      setLoading(false);
+    }
+  };
+
+  const setColor = () => {
+    if (typePokemon === 'bug') {
+      setPrimaryBgColor('#719E3E');
+      setSecondBgColor('#fff');
+    } else if (typePokemon === 'dragon') {
+      setPrimaryBgColor('#53A4CF');
+      setSecondBgColor('#F06E56');
+    } else if (typePokemon === 'fairy') {
+      setPrimaryBgColor('#FDB9EA');
+      setSecondBgColor('#fff');
+    } else if (typePokemon === 'fire') {
+      setPrimaryBgColor('#f60000');
+      setSecondBgColor('#fcb045');
+    } else if (typePokemon === 'ghost') {
+      setPrimaryBgColor('#7A62A2');
+      setSecondBgColor('#333');
+    } else if (typePokemon === 'ground') {
+      setPrimaryBgColor('#F7DE3E');
+      setSecondBgColor('#fff');
+    } else if (typePokemon === 'normal') {
+      setPrimaryBgColor('#A4ADB0');
+      setSecondBgColor('#fff');
+    } else if (typePokemon === 'psychic') {
+      setPrimaryBgColor('#F366B9');
+      setSecondBgColor('#fff');
+    } else if (typePokemon === 'steel') {
+      setPrimaryBgColor('#9EB7B8');
+      setSecondBgColor('#fff');
+    } else if (typePokemon === 'dark') {
+      setPrimaryBgColor('#717171');
+      setSecondBgColor('#fff');
+    } else if (typePokemon === 'electric') {
+      setPrimaryBgColor('#EED534');
+      setSecondBgColor('#fff');
+    } else if (typePokemon === 'fighting') {
+      setPrimaryBgColor('#D56723');
+      setSecondBgColor('#fff');
+    } else if (typePokemon === 'flying') {
+      setPrimaryBgColor('#3CC7EF');
+      setSecondBgColor('#BDB9B8');
+    } else if (typePokemon === 'grass') {
+      setPrimaryBgColor('#9BCB50');
+      setSecondBgColor('#fff');
+    } else if (typePokemon === 'ice') {
+      setPrimaryBgColor('#50C3E7');
+      setSecondBgColor('#fff');
+    } else if (typePokemon === 'poison') {
+      setPrimaryBgColor('#BA7FC9');
+      setSecondBgColor('#fff');
+    } else if (typePokemon === 'rock') {
+      setPrimaryBgColor('#A38C20');
+      setSecondBgColor('#fff');
+    } else if (typePokemon === 'water') {
+      setPrimaryBgColor('#4591C4');
+      setSecondBgColor('#fff');
+    }
   };
 
   const handleClick = () => {
-    findByPokemon();
+    infoPokemon();
+    setColor();
   };
 
   return (
@@ -41,11 +119,14 @@ export default () => {
             value={namePokemon}
             onChangeText={name => setNamePokemon(name)}
           />
-          <FormButton onPress={handleClick}>
-            <Icon name="search" size={30} color="#fff" />
+          <FormButton loading={loading} onPress={handleClick}>
+            {loading ? (
+              <ActivityIndicator color="#fff" />
+            ) : (
+              <Icon name="search" size={30} color="#fff" />
+            )}
           </FormButton>
         </Form>
-        <Result />
       </Page>
     </Linear>
   );

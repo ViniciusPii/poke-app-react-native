@@ -29,6 +29,7 @@ export const Input = styled.TextInput`
   width: 75%;
   font-size: 18px;
   padding-left: 10px;
+  background-color: #fff;
 `;
 
 export const FormButton = styled.TouchableOpacity`
@@ -39,18 +40,6 @@ export const FormButton = styled.TouchableOpacity`
   align-items: center;
   justify-content: center;
 `;
-
-export const Result = styled.View`
-  width: 90%;
-  height: 300px;
-  box-shadow: 0px 5px 5px #c8c8c8;
-  background-color: #fff;
-  border-radius: 10px;
-  margin-top: 100px;
-  elevation: 10;
-`;
-
-export const Result2 = styled.View``;
 
 export const Text = styled.Text`
   font-size: 18px;
