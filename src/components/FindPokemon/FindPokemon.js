@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Keyboard, ActivityIndicator } from 'react-native';
+import { Keyboard, ActivityIndicator, StatusBar } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import api from '../../clients/pokeApi';
 import {
@@ -11,14 +11,23 @@ import {
   Logo,
   Result,
   Text,
+  Img,
+  Status,
+  ResultInfoPoke,
+  ResultName,
+  ResultInfo,
 } from './FindPokemon.style';
 
 export default () => {
   const [primaryBgColor, setPrimaryBgColor] = useState('#fff');
   const [secondBgColor, setSecondBgColor] = useState('#fff');
   const [loading, setLoading] = useState(false);
+  const [showResult, setShowResult] = useState(false);
   const [namePokemon, setNamePokemon] = useState('');
-  const [typePokemon, setTypePokemon] = useState('');
+  const [typePokemonBgColor, setTypePokemonBgColor] = useState();
+  const [typePokemon, setTypePokemon] = useState([]);
+  const [abilitiesPokemon, setAbilitiesPokemon] = useState([]);
+  const [imgPokemon, setImgPokemon] = useState();
 
   const infoPokemon = async () => {
     try {
@@ -27,20 +36,24 @@ export default () => {
 
       const { data } = response;
 
-      setTypePokemon(data.types[0].type.name);
+      setTypePokemon(data.types);
+      setAbilitiesPokemon(data.abilities);
+      setImgPokemon(data.sprites.front_default);
+      setTypePokemonBgColor(data.types[0].type.name);
       setLoading(false);
       Keyboard.dismiss();
-      console.log(data);
     } catch (error) {
       alert('Error!!');
       setNamePokemon('');
+      setImgPokemon();
+      setShowResult(false);
       setLoading(false);
       Keyboard.dismiss();
     }
   };
 
   const setColor = () => {
-    switch (typePokemon) {
+    switch (typePokemonBgColor) {
       case 'bug':
         setPrimaryBgColor('#719E3E');
         setSecondBgColor('#fff');
@@ -119,15 +132,17 @@ export default () => {
 
   useEffect(() => {
     setColor();
-  }, [typePokemon]);
+  }, [typePokemonBgColor]);
 
   const handleClick = () => {
+    setShowResult(true);
     infoPokemon();
     setColor();
   };
 
   return (
     <Linear colors={[primaryBgColor, secondBgColor]}>
+      <Status />
       <Page>
         <Logo
           source={require('../../assets/images/logo.png')}
@@ -135,7 +150,7 @@ export default () => {
         />
         <Form>
           <Input
-            placeholder="Digite o Pokemon"
+            placeholder="Search your Pokemon"
             autoCapitalize="none"
             autoCompleteType="off"
             autoCorrect={false}
@@ -150,6 +165,25 @@ export default () => {
             )}
           </FormButton>
         </Form>
+        {showResult && (
+          <Result>
+            <Img source={{ uri: imgPokemon }} resizeMode="stretch" />
+            <ResultInfoPoke>
+              <ResultName>Type</ResultName>
+              {typePokemon.map(type => (
+                <ResultInfo key={type.type.name}>{type.type.name}</ResultInfo>
+              ))}
+            </ResultInfoPoke>
+            <ResultInfoPoke>
+              <ResultName>Abilities</ResultName>
+              {abilitiesPokemon.map(ability => (
+                <ResultInfo key={ability.ability.name}>
+                  {ability.ability.name}
+                </ResultInfo>
+              ))}
+            </ResultInfoPoke>
+          </Result>
+        )}
       </Page>
     </Linear>
   );
