@@ -58,6 +58,7 @@ export const Img = styled.Image`
 
 export const ResultInfoPoke = styled.View`
   width: 90%;
+  margin-bottom: 20px;
 `;
 
 export const ResultName = styled.Text`

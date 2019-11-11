@@ -31,6 +31,11 @@ export default () => {
 
   const infoPokemon = async () => {
     try {
+      if (namePokemon === '') {
+        alert('Nome em Branco, não é um pokemon, joven!!!');
+        return;
+      }
+
       setLoading(true);
       const response = await api.get(`/pokemon/${namePokemon}`);
 
@@ -41,9 +46,10 @@ export default () => {
       setImgPokemon(data.sprites.front_default);
       setTypePokemonBgColor(data.types[0].type.name);
       setLoading(false);
+      setShowResult(true);
       Keyboard.dismiss();
     } catch (error) {
-      alert('Error!!');
+      alert('Ah, não!! Isso não é um pokemon!!!');
       setNamePokemon('');
       setImgPokemon();
       setShowResult(false);
@@ -135,7 +141,6 @@ export default () => {
   }, [typePokemonBgColor]);
 
   const handleClick = () => {
-    setShowResult(true);
     infoPokemon();
     setColor();
   };
@@ -154,7 +159,9 @@ export default () => {
             autoCapitalize="none"
             autoCompleteType="off"
             autoCorrect={false}
-            onChangeText={name => setNamePokemon(name)}
+            onChangeText={name =>
+              setNamePokemon(name.replace(/\d/g, '').trim())
+            }
             value={namePokemon}
           />
           <FormButton loading={loading} onPress={handleClick}>
