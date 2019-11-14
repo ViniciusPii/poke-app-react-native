@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Keyboard, ActivityIndicator, StatusBar } from 'react-native';
+import { Keyboard, ActivityIndicator } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import api from '../../clients/pokeApi';
 import {
@@ -10,7 +10,6 @@ import {
   Linear,
   Logo,
   Result,
-  Text,
   Img,
   Status,
   ResultInfoPoke,
