@@ -36,14 +36,18 @@ export default () => {
       }
 
       setLoading(true);
-      const response = await api.get(`/pokemon/${namePokemon}`);
+      const response = await api.get(`/pokemon/${namePokemon.trim().replace(' ', '-')}`);
 
       const { data } = response;
 
       setTypePokemon(data.types);
       setAbilitiesPokemon(data.abilities);
       setImgPokemon(data.sprites.front_default);
-      setTypePokemonBgColor(data.types[0].type.name);
+      if (data.types.length === 1) {
+        setTypePokemonBgColor(data.types[0].type.name);
+      } else {
+        setTypePokemonBgColor(data.types[1].type.name);
+      }
       setLoading(false);
       setShowResult(true);
       Keyboard.dismiss();
@@ -142,6 +146,7 @@ export default () => {
   const handleClick = () => {
     infoPokemon();
     setColor();
+    setNamePokemon(namePokemon.trim())
   };
 
   return (
@@ -159,7 +164,7 @@ export default () => {
             autoCompleteType="off"
             autoCorrect={false}
             onChangeText={name =>
-              setNamePokemon(name.replace(/\d/g, '').trim())
+              setNamePokemon(name.replace(/\d/g, ''))
             }
             value={namePokemon}
           />
