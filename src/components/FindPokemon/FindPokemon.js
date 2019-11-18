@@ -16,6 +16,7 @@ import {
   ResultName,
   ResultInfo,
   Scroll,
+  ResultInfoDiv,
 } from './FindPokemon.style';
 
 export default () => {
@@ -30,38 +31,23 @@ export default () => {
   const [imgPokemon, setImgPokemon] = useState();
 
   const infoPokemon = async () => {
-    try {
-      if (namePokemon === '') {
-        alert('Nome em Branco, não é um pokemon, joven!!!');
-        return;
-      }
+    setLoading(true);
+    const response = await api.get(
+      `/pokemon/${namePokemon.trim().replace(' ', '-')}`
+    );
 
-      setLoading(true);
-      const response = await api.get(
-        `/pokemon/${namePokemon.trim().replace(' ', '-')}`
-      );
+    const { types, abilities, sprites } = response.data;
 
-      const { data } = response;
-
-      setTypePokemon(data.types);
-      setAbilitiesPokemon(data.abilities);
-      setImgPokemon(data.sprites.front_default);
-      if (data.types.length === 1) {
-        setTypePokemonBgColor(data.types[0].type.name);
-      } else {
-        setTypePokemonBgColor(data.types[1].type.name);
-      }
-      setLoading(false);
-      setShowResult(true);
-      Keyboard.dismiss();
-    } catch (error) {
-      alert('Ah, não!! Isso não é um pokemon!!!');
-      setNamePokemon('');
-      setImgPokemon();
-      setShowResult(false);
-      setLoading(false);
-      Keyboard.dismiss();
+    setTypePokemon(types);
+    setAbilitiesPokemon(abilities);
+    setImgPokemon(sprites.front_default);
+    if (types.length === 1) {
+      setTypePokemonBgColor(types[0].type.name);
+    } else {
+      setTypePokemonBgColor(types[1].type.name);
     }
+    setLoading(false);
+    setShowResult(true);
   };
 
   const setColor = () => {
@@ -150,6 +136,7 @@ export default () => {
     infoPokemon();
     setColor();
     setNamePokemon(namePokemon.trim());
+    Keyboard.dismiss();
   };
 
   return (
@@ -183,17 +170,23 @@ export default () => {
             <Result>
               <ResultInfoPoke>
                 <ResultName>Type</ResultName>
-                {typePokemon.map(type => (
-                  <ResultInfo key={type.type.name}>{type.type.name}</ResultInfo>
-                ))}
+                <ResultInfoDiv>
+                  {typePokemon.map(type => (
+                    <ResultInfo key={type.type.name}>
+                      {type.type.name}
+                    </ResultInfo>
+                  ))}
+                </ResultInfoDiv>
               </ResultInfoPoke>
               <ResultInfoPoke>
                 <ResultName>Abilities</ResultName>
-                {abilitiesPokemon.map(ability => (
-                  <ResultInfo key={ability.ability.name}>
-                    {ability.ability.name}
-                  </ResultInfo>
-                ))}
+                <ResultInfoDiv>
+                  {abilitiesPokemon.map(ability => (
+                    <ResultInfo key={ability.ability.name}>
+                      {ability.ability.name}
+                    </ResultInfo>
+                  ))}
+                </ResultInfoDiv>
               </ResultInfoPoke>
             </Result>
           )}

@@ -52,7 +52,7 @@ export const FormButton = styled.TouchableOpacity`
 
 export const Result = styled.View`
   align-items: center;
-  height: 740px;
+  height: 200px;
   width: 100%;
 `;
 
@@ -81,20 +81,24 @@ export const ResultName = styled.Text`
   width: auto;
 `;
 
+export const ResultInfoDiv = styled.View`
+  flex-direction: row;
+  flex-wrap: wrap;
+`;
+
 export const ResultInfo = styled.Text`
   background-color: #fff;
   border-radius: 5px;
   border: 1px solid #3b5ca5;
   color: #3b5ca5;
+  flex: 1;
   font-size: 18px;
   height: 30px;
   line-height: 30px;
-  margin-bottom: 10px;
+  min-width: 50%;
   overflow: hidden;
-  padding: 0 20px;
   text-align: center;
   text-transform: capitalize;
-  width: auto;
 `;
 
 export const Text = styled.Text`
