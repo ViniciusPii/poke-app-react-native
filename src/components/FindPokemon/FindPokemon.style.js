@@ -1,5 +1,10 @@
 import styled from 'styled-components/native';
 import LinearGradient from 'react-native-linear-gradient';
+import { ScrollView } from 'react-native';
+
+export const Scroll = styled(ScrollView)`
+  width: 100%;
+`;
 
 export const Linear = styled(LinearGradient)`
   flex: 1;
@@ -48,6 +53,7 @@ export const FormButton = styled.TouchableOpacity`
 export const Result = styled.View`
   align-items: center;
   width: 100%;
+  height: 740px;
 `;
 
 export const Img = styled.Image`

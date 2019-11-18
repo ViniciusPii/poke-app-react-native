@@ -15,6 +15,7 @@ import {
   ResultInfoPoke,
   ResultName,
   ResultInfo,
+  Scroll,
 } from './FindPokemon.style';
 
 export default () => {
@@ -36,7 +37,9 @@ export default () => {
       }
 
       setLoading(true);
-      const response = await api.get(`/pokemon/${namePokemon.trim().replace(' ', '-')}`);
+      const response = await api.get(
+        `/pokemon/${namePokemon.trim().replace(' ', '-')}`
+      );
 
       const { data } = response;
 
@@ -146,7 +149,7 @@ export default () => {
   const handleClick = () => {
     infoPokemon();
     setColor();
-    setNamePokemon(namePokemon.trim())
+    setNamePokemon(namePokemon.trim());
   };
 
   return (
@@ -163,9 +166,7 @@ export default () => {
             autoCapitalize="none"
             autoCompleteType="off"
             autoCorrect={false}
-            onChangeText={name =>
-              setNamePokemon(name.replace(/\d/g, ''))
-            }
+            onChangeText={name => setNamePokemon(name.replace(/\d/g, ''))}
             value={namePokemon}
           />
           <FormButton loading={loading} onPress={handleClick}>
@@ -176,25 +177,27 @@ export default () => {
             )}
           </FormButton>
         </Form>
-        {showResult && (
-          <Result>
-            <Img source={{ uri: imgPokemon }} resizeMode="stretch" />
-            <ResultInfoPoke>
-              <ResultName>Type</ResultName>
-              {typePokemon.map(type => (
-                <ResultInfo key={type.type.name}>{type.type.name}</ResultInfo>
-              ))}
-            </ResultInfoPoke>
-            <ResultInfoPoke>
-              <ResultName>Abilities</ResultName>
-              {abilitiesPokemon.map(ability => (
-                <ResultInfo key={ability.ability.name}>
-                  {ability.ability.name}
-                </ResultInfo>
-              ))}
-            </ResultInfoPoke>
-          </Result>
-        )}
+        <Img source={{ uri: imgPokemon }} resizeMode="stretch" />
+        <Scroll>
+          {showResult && (
+            <Result>
+              <ResultInfoPoke>
+                <ResultName>Type</ResultName>
+                {typePokemon.map(type => (
+                  <ResultInfo key={type.type.name}>{type.type.name}</ResultInfo>
+                ))}
+              </ResultInfoPoke>
+              <ResultInfoPoke>
+                <ResultName>Abilities</ResultName>
+                {abilitiesPokemon.map(ability => (
+                  <ResultInfo key={ability.ability.name}>
+                    {ability.ability.name}
+                  </ResultInfo>
+                ))}
+              </ResultInfoPoke>
+            </Result>
+          )}
+        </Scroll>
       </Page>
     </Linear>
   );
