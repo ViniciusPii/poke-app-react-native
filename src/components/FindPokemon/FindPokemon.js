@@ -32,22 +32,27 @@ export default () => {
 
   const infoPokemon = async () => {
     setLoading(true);
-    const response = await api.get(
-      `/pokemon/${namePokemon.trim().replace(' ', '-')}`
-    );
 
-    const { types, abilities, sprites } = response.data;
+    try {
+      const response = await api.get(
+        `/pokemon/${namePokemon.trim().replace(' ', '-')}`
+      );
 
-    setTypePokemon(types);
-    setAbilitiesPokemon(abilities);
-    setImgPokemon(sprites.front_default);
-    if (types.length === 1) {
-      setTypePokemonBgColor(types[0].type.name);
-    } else {
-      setTypePokemonBgColor(types[1].type.name);
+      const { types, abilities, sprites } = response.data;
+
+      types.length === 1
+        ? setTypePokemonBgColor(types[0].type.name)
+        : setTypePokemonBgColor(types[1].type.name);
+
+      setTypePokemon(types);
+      setAbilitiesPokemon(abilities);
+      setImgPokemon(sprites.front_default);
+      setLoading(false);
+      setShowResult(true);
+    } catch (error) {
+      alert('Não foi possível encontrar o seu Pokemon!!!');
+      setLoading(false);
     }
-    setLoading(false);
-    setShowResult(true);
   };
 
   const setColor = () => {
@@ -133,6 +138,10 @@ export default () => {
   }, [typePokemonBgColor]);
 
   const handleClick = () => {
+    if (namePokemon === '') {
+      alert('Compo vazio não é um nome de Pokemon!!!');
+      return;
+    }
     infoPokemon();
     setColor();
     setNamePokemon(namePokemon.trim());
