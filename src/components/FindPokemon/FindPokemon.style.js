@@ -19,82 +19,82 @@ export const Page = styled.SafeAreaView`
 `;
 
 export const Logo = styled.Image`
-  width: 90%;
-  margin-top: 20px;
   height: 100px;
+  margin-top: 20px;
+  width: 90%;
 `;
 
 export const Form = styled.View`
   flex-direction: row;
-  width: 90%;
   justify-content: space-between;
   margin-top: 20px;
+  width: 90%;
 `;
 
 export const Input = styled.TextInput`
-  height: 50px;
-  border: 1px solid #3b5ca5;
-  border-radius: 5px;
-  width: 75%;
-  font-size: 18px;
-  padding-left: 10px;
   background-color: #fff;
+  border-radius: 5px;
+  border: 1px solid #3b5ca5;
+  font-size: 18px;
+  height: 50px;
+  padding-left: 10px;
+  width: 75%;
 `;
 
 export const FormButton = styled.TouchableOpacity`
-  width: 20%;
-  height: 50px;
-  border-radius: 5px;
-  background-color: #3b5ca5;
   align-items: center;
+  background-color: #3b5ca5;
+  border-radius: 5px;
+  height: 50px;
   justify-content: center;
+  width: 20%;
 `;
 
 export const Result = styled.View`
   align-items: center;
-  width: 100%;
   height: 740px;
+  width: 100%;
 `;
 
 export const Img = styled.Image`
-  width: 200px;
   height: 200px;
   margin: 20px 0;
+  width: 200px;
 `;
 
 export const ResultInfoPoke = styled.View`
-  width: 90%;
   margin-bottom: 20px;
+  width: 90%;
 `;
 
 export const ResultName = styled.Text`
   background-color: #3b5ca5;
-  color: #fff;
-  width: auto;
-  height: 30px;
   border-radius: 5px;
-  overflow: hidden;
-  text-align: center;
-  line-height: 30px;
+  color: #fff;
   font-size: 18px;
+  height: 30px;
+  line-height: 30px;
   margin-bottom: 10px;
+  overflow: hidden;
   padding: 0 20px;
+  text-align: center;
+  width: auto;
 `;
 
 export const ResultInfo = styled.Text`
   background-color: #fff;
-  width: auto;
-  height: 30px;
   border-radius: 5px;
-  overflow: hidden;
-  text-align: center;
-  line-height: 30px;
-  font-size: 18px;
-  padding: 0 20px;
-  margin-bottom: 10px;
-  text-transform: capitalize;
   border: 1px solid #3b5ca5;
   color: #3b5ca5;
+  font-size: 18px;
+  height: 30px;
+  line-height: 30px;
+  margin-bottom: 10px;
+  overflow: hidden;
+  padding: 0 20px;
+  text-align: center;
+  text-transform: capitalize;
+  width: auto;
 `;
 
 export const Text = styled.Text`
