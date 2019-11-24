@@ -52,7 +52,7 @@ export const FormButton = styled.TouchableOpacity`
 
 export const Result = styled.View`
   align-items: center;
-  height: 200px;
+  height: auto;
   width: 100%;
 `;
 

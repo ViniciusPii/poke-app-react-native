@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Keyboard, ActivityIndicator } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import api from '../../clients/pokeApi';
+import colors from '../../config/colors';
 import {
   Page,
   Form,
@@ -29,6 +30,7 @@ export default () => {
   const [typePokemon, setTypePokemon] = useState([]);
   const [abilitiesPokemon, setAbilitiesPokemon] = useState([]);
   const [imgPokemon, setImgPokemon] = useState();
+  const [weaknesses, setWeaknesses] = useState([]);
 
   const infoPokemon = async () => {
     setLoading(true);
@@ -50,6 +52,7 @@ export default () => {
       setLoading(false);
       setShowResult(true);
     } catch (error) {
+      setShowResult(false);
       alert('Não foi possível encontrar o seu Pokemon!!!');
       setLoading(false);
     }
@@ -58,92 +61,108 @@ export default () => {
   const setColor = () => {
     switch (typePokemonBgColor) {
       case 'bug':
-        setPrimaryBgColor('#719E3E');
-        setSecondBgColor('#fff');
+        setPrimaryBgColor(colors.greenBug);
+        setSecondBgColor(colors.white);
         break;
       case 'dragon':
-        setPrimaryBgColor('#53A4CF');
-        setSecondBgColor('#F06E56');
+        setPrimaryBgColor(colors.blueDragon);
+        setSecondBgColor(colors.redDragon);
         break;
       case 'fairy':
-        setPrimaryBgColor('#FDB9EA');
-        setSecondBgColor('#fff');
+        setPrimaryBgColor(colors.pinkFairy);
+        setSecondBgColor(colors.white);
         break;
       case 'fire':
-        setPrimaryBgColor('#f60000');
-        setSecondBgColor('#fcb045');
+        setPrimaryBgColor(colors.redFire);
+        setSecondBgColor(colors.orangeFire);
         break;
       case 'ghost':
-        setPrimaryBgColor('#7A62A2');
-        setSecondBgColor('#333');
+        setPrimaryBgColor(colors.purpleGhost);
+        setSecondBgColor(colors.grayGhost);
         break;
       case 'ground':
-        setPrimaryBgColor('#F7DE3E');
-        setSecondBgColor('#fff');
+        setPrimaryBgColor(colors.yellowGround);
+        setSecondBgColor(colors.white);
         break;
       case 'normal':
-        setPrimaryBgColor('#A4ADB0');
-        setSecondBgColor('#fff');
+        setPrimaryBgColor(colors.grayNormal);
+        setSecondBgColor(colors.white);
         break;
       case 'psychic':
-        setPrimaryBgColor('#F366B9');
-        setSecondBgColor('#fff');
+        setPrimaryBgColor(colors.pinkPsychic);
+        setSecondBgColor(colors.white);
         break;
       case 'steel':
-        setPrimaryBgColor('#9EB7B8');
-        setSecondBgColor('#fff');
+        setPrimaryBgColor(colors.graySteel);
+        setSecondBgColor(colors.white);
         break;
       case 'dark':
-        setPrimaryBgColor('#717171');
-        setSecondBgColor('#fff');
+        setPrimaryBgColor(colors.blackDark);
+        setSecondBgColor(colors.white);
         break;
       case 'electric':
-        setPrimaryBgColor('#EED534');
-        setSecondBgColor('#fff');
+        setPrimaryBgColor(colors.yellowElectric);
+        setSecondBgColor(colors.white);
         break;
       case 'fighting':
-        setPrimaryBgColor('#D56723');
-        setSecondBgColor('#fff');
+        setPrimaryBgColor(colors.orangeFighting);
+        setSecondBgColor(colors.white);
         break;
       case 'flying':
-        setPrimaryBgColor('#3CC7EF');
-        setSecondBgColor('#BDB9B8');
+        setPrimaryBgColor(colors.blueFlying);
+        setSecondBgColor(colors.grayFlying);
         break;
       case 'grass':
-        setPrimaryBgColor('#9BCB50');
-        setSecondBgColor('#fff');
+        setPrimaryBgColor(colors.greenGrass);
+        setSecondBgColor(colors.white);
         break;
       case 'ice':
-        setPrimaryBgColor('#50C3E7');
-        setSecondBgColor('#fff');
+        setPrimaryBgColor(colors.blueIce);
+        setSecondBgColor(colors.white);
         break;
       case 'poison':
-        setPrimaryBgColor('#BA7FC9');
-        setSecondBgColor('#fff');
+        setPrimaryBgColor(colors.purplePoison);
+        setSecondBgColor(colors.white);
         break;
       case 'rock':
-        setPrimaryBgColor('#A38C20');
-        setSecondBgColor('#fff');
+        setPrimaryBgColor(colors.goldRock);
+        setSecondBgColor(colors.white);
         break;
       case 'water':
-        setPrimaryBgColor('#4591C4');
-        setSecondBgColor('#fff');
+        setPrimaryBgColor(colors.blueWater);
+        setSecondBgColor(colors.white);
         break;
       default:
     }
+  };
+
+  const weaknessesByType = async () => {
+    const response = await api.get(`/type/${typePokemonBgColor}`);
+
+    const { damage_relations } = response.data;
+
+    const { double_damage_from } = damage_relations;
+
+    setWeaknesses(double_damage_from);
   };
 
   useEffect(() => {
     setColor();
   }, [typePokemonBgColor]);
 
+  useEffect(() => {
+    weaknessesByType();
+  }, [typePokemonBgColor]);
+
   const handleClick = () => {
     if (namePokemon === '') {
       alert('Compo vazio não é um nome de Pokemon!!!');
+      setShowResult(false);
       return;
     }
     infoPokemon();
     setColor();
+    weaknessesByType();
     setNamePokemon(namePokemon.trim());
     Keyboard.dismiss();
   };
@@ -173,9 +192,11 @@ export default () => {
             )}
           </FormButton>
         </Form>
-        <Img source={{ uri: imgPokemon }} resizeMode="stretch" />
-        <Scroll>
-          {showResult && (
+        {showResult && (
+          <Img source={{ uri: imgPokemon }} resizeMode="stretch" />
+        )}
+        {showResult && (
+          <Scroll>
             <Result>
               <ResultInfoPoke>
                 <ResultName>Type</ResultName>
@@ -197,9 +218,17 @@ export default () => {
                   ))}
                 </ResultInfoDiv>
               </ResultInfoPoke>
+              <ResultInfoPoke>
+                <ResultName>Weaknesses</ResultName>
+                <ResultInfoDiv>
+                  {weaknesses.map(weakness => (
+                    <ResultInfo key={weakness.name}>{weakness.name}</ResultInfo>
+                  ))}
+                </ResultInfoDiv>
+              </ResultInfoPoke>
             </Result>
-          )}
-        </Scroll>
+          </Scroll>
+        )}
       </Page>
     </Linear>
   );

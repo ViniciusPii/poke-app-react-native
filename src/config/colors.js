@@ -1,0 +1,27 @@
+const colors = {
+  greenBug: '#719E3E',
+  white: '#fff',
+  blueDragon: '#53A4CF',
+  redDragon: '#F06E56',
+  pinkFairy: '#FDB9EA',
+  redFire: '#f60000',
+  orangeFire: '#fcb045',
+  purpleGhost: '#7A62A2',
+  grayGhost: '#333',
+  yellowGround: '#F7DE3E',
+  grayNormal: '#A4ADB0',
+  pinkPsychic: '#F366B9',
+  graySteel: '#9EB7B8',
+  blackDark: '#717171',
+  yellowElectric: '#EED534',
+  orangeFighting: '#D56723',
+  blueFlying: '#3CC7EF',
+  grayFlying: '#BDB9B8',
+  greenGrass: '#9BCB50',
+  blueIce: '#50C3E7',
+  purplePoison: '#BA7FC9',
+  goldRock: '#A38C20',
+  blueWater: '#4591C4',
+};
+
+export default colors;
