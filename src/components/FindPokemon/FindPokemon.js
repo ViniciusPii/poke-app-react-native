@@ -169,7 +169,7 @@ export default () => {
 
   return (
     <Linear colors={[primaryBgColor, secondBgColor]}>
-      <Status />
+      <Status backgroundColor="#3b5ca5" />
       <Page>
         <Logo
           source={require('../../assets/images/logo.png')}

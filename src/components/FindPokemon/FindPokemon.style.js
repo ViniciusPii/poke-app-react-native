@@ -10,9 +10,7 @@ export const Linear = styled(LinearGradient)`
   flex: 1;
 `;
 
-export const Status = styled.StatusBar`
-  background-color: #3b5ca5;
-`;
+export const Status = styled.StatusBar``;
 
 export const Page = styled.SafeAreaView`
   align-items: center;
@@ -52,7 +50,7 @@ export const FormButton = styled.TouchableOpacity`
 
 export const Result = styled.View`
   align-items: center;
-  height: 310px;
+  height: 800px;
   width: 100%;
 `;
 
